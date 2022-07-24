@@ -15,7 +15,7 @@ process.stdout.write(`${startmargin}`)
 for (let date = 1; date <= lastdate; date++) {
   const current = certainmonth.date(date)
   const weekday = current.day()
-  if (weekday === 0) {
+  if (weekday === 0 && date !== 1) {
     console.log('')
   }
   process.stdout.write(` ${String(date).padStart(2)}`)
