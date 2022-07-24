@@ -20,5 +20,3 @@ for (let date = 1; date <= lastdate; date++) {
   }
   process.stdout.write(` ${String(date).padStart(2)}`)
 }
-
-console.log(dayjs().toDate().getTimezoneOffset())
