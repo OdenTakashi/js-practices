@@ -15,8 +15,9 @@ process.stdout.write(start_margin)
 for (let date = 1; date <= last_date; date++) {
   const current = certain_month.date(date)
   const weekday = current.day()
+  const date_adjusted = String(date).padStart(3)
   if (weekday === 0 && date !== 1) {
     console.log('')
   }
-  process.stdout.write(` ${String(date).padStart(2)}`)
+  process.stdout.write(date_adjusted)
 }
