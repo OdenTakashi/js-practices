@@ -3,21 +3,21 @@ const minimist = require('minimist')(process.argv.slice(2))
 
 const year = minimist.y ? minimist.y : dayjs().year()
 const month = minimist.m ? minimist.m : dayjs().month() + 1
-const certain_month = dayjs(`${year}-${month}`)
-const last_date = certain_month.endOf('month').date()
-const start_weekday = certain_month.day()
+const certainMonth = dayjs(`${year}-${month}`)
+const lastDate = certainMonth.endOf('month').date()
+const startWeekday = certainMonth.day()
 
 console.log(`     ${month}月 ${year}`)
 console.log(' 日 月 火 水 木 金 土')
-const start_margin = '   '.repeat(start_weekday)
-process.stdout.write(start_margin)
+const startMargin = '   '.repeat(startWeekday)
+process.stdout.write(startMargin)
 
-for (let date = 1; date <= last_date; date++) {
-  const current = certain_month.date(date)
+for (let date = 1; date <= lastDate; date++) {
+  const current = certainMonth.date(date)
   const weekday = current.day()
-  const date_adjusted = String(date).padStart(3)
+  const dateAdjusted = String(date).padStart(3)
   if (weekday === 0 && date !== 1) {
     console.log('')
   }
-  process.stdout.write(date_adjusted)
+  process.stdout.write(dateAdjusted)
 }
