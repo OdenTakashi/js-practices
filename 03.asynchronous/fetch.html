@@ -1,12 +1,15 @@
-<script>
-  const asyncAwaitFunction = async () => {
-      await fetch('https://bootcamp.fjord.jp/')
-    .then((result) => {
-      console.log(result)
-    })
-    .catch(() => {
-      console.log('失敗')
-    })
-  }
-  asyncAwaitFunction();
-</script>
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+      async function getHtml() {
+        const response = await fetch('https://bootcamp.fjord.jp/')
+        const html = await response.text();
+        console.log(html);
+      }
+      getHtml();
+    </script>
+  </body>
+</html>
