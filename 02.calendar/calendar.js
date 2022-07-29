@@ -10,7 +10,7 @@ const start_weekday = certain_month.day()
 console.log(`     ${month}月 ${year}`)
 console.log(' 日 月 火 水 木 金 土')
 const start_margin = '   '.repeat(start_weekday)
-process.stdout.write(`${start_margin}`)
+process.stdout.write(start_margin)
 
 for (let date = 1; date <= last_date; date++) {
   const current = certain_month.date(date)
