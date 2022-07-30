@@ -4,23 +4,23 @@ const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
 const inputs = []
 
-const reader = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-})
-
+// rオプション
 if (minimist.r) {
   const files = fs.readdirSync('./memo_data', 'utf-8')
+  const base = files.map(file => {
+    return file.replace('.txt', '')
+  })
   const question = {
     type: 'select',
     name: 'filename',
     message: 'Choose a note you want to see:',
-    choices: files
+    choices: base
   }
   prompt(question)
-    .then(answer => console.log(fs.readFileSync(`./memo_data/${answer.filename}`, 'utf-8')))
+    .then(answer => console.log(fs.readFileSync(`./memo_data/${answer.filename}.txt`, 'utf-8')))
 }
 
+// lオプション
 if (minimist.l) {
   const filenames = fs.readdirSync('./memo_data', 'utf-8')
   for (let number = 0; number < filenames.length; number++) {
@@ -28,6 +28,12 @@ if (minimist.l) {
   }
   exit()
 }
+
+// オプションなし
+const reader = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
 
 if (!minimist.l && !minimist.r) {
   reader.on('line', function (line) {
