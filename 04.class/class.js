@@ -40,9 +40,6 @@ if (!minimist.l && !minimist.r) {
 
   reader.on('close', function () {
     console.log('ファイルを保存しました。')
-    for (let i = 0; i < inputs.length; i++) {
-      console.log(inputs[i])
-    }
-    fs.writeFileSync(`./memo_data/${inputs[0]}.txt`, String(inputs))
+    fs.writeFileSync(`./memo_data/${inputs[0]}.txt`, inputs.toString().replace(',', '\n'))
   })
 }
