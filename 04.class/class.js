@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
 const inputs = []
 
@@ -8,8 +9,11 @@ const reader = require('readline').createInterface({
 })
 
 if (minimist.l) {
-  const filenames = fs.readFileSync('./memo_data/')
-  console.log(filenames)
+  const filenames = fs.readdirSync('./memo_data', 'utf-8')
+  for (let number = 0; number < filenames.length; number++) {
+    console.log(filenames[number].replace('.txt', ''))
+  }
+  exit()
 }
 reader.on('line', function (line) {
   inputs.push(line)
