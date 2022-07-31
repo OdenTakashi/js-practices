@@ -4,6 +4,22 @@ const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
 const inputs = []
 
+// dオプション
+if (minimist.d) {
+  const files = fs.readdirSync('./memo_data', 'utf-8')
+  const base = files.map(file => {
+    return file.replace('.txt', '')
+  })
+  const question = {
+    type: 'select',
+    name: 'filename',
+    message: 'Choose a note you want to destroy:',
+    choices: base
+  }
+  prompt(question)
+    .then(answer => fs.unlinkSync(`./memo_data/${answer.filename}.txt`))
+}
+
 // rオプション
 if (minimist.r) {
   const files = fs.readdirSync('./memo_data', 'utf-8')
@@ -35,9 +51,9 @@ const reader = require('readline').createInterface({
   output: process.stdout
 })
 
-if (!minimist.l && !minimist.r) {
+if (!minimist.l && !minimist.r && !minimist.d) {
   reader.on('line', function (line) {
-    inputs.push(line)
+    inputs.push('\n' + line)
   })
 
   reader.question('メモを作成してね！ \n', (answer) => {
@@ -46,6 +62,7 @@ if (!minimist.l && !minimist.r) {
 
   reader.on('close', function () {
     console.log('ファイルを保存しました。')
-    fs.writeFileSync(`./memo_data/${inputs[0]}.txt`, inputs.toString().replace(',', '\n'))
+    console.log(inputs.join(''))
+    fs.writeFileSync(`./memo_data/${inputs[0]}.txt`, inputs.join(''))
   })
 }
