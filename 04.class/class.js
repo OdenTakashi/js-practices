@@ -10,6 +10,10 @@ const reader = require('readline').createInterface({
 })
 
 class Memo {
+  constructor () {
+    this.files = fs.readdirSync('./memo_data', 'utf-8')
+  }
+
   create () {
     reader.on('line', function (line) {
       inputs.push('\n' + line)
@@ -26,7 +30,7 @@ class Memo {
   }
 
   destroy () {
-    const files = fs.readdirSync('./memo_data', 'utf-8')
+    const files = this.files
     if (files.length === 0) {
       console.log('削除できるファイルがありません')
       exit()
@@ -45,7 +49,7 @@ class Memo {
   }
 
   list () {
-    const filenames = fs.readdirSync('./memo_data', 'utf-8')
+    const filenames = this.files
     for (let number = 0; number < filenames.length; number++) {
       console.log(filenames[number].replace('.txt', ''))
     }
@@ -53,7 +57,7 @@ class Memo {
   }
 
   show () {
-    const files = fs.readdirSync('./memo_data', 'utf-8')
+    const files = this.files
     const basename = files.map(file => {
       return file.replace('.txt', '')
     })
