@@ -30,12 +30,12 @@ class Memo {
   }
 
   destroy () {
-    const files = this.files
-    if (files.length === 0) {
+    const filenames = this.files
+    if (filenames.length === 0) {
       console.log('削除できるファイルがありません')
       exit()
     }
-    const basename = files.map(file => {
+    const basename = filenames.map(file => {
       return file.replace('.txt', '')
     })
     const question = {
@@ -50,6 +50,10 @@ class Memo {
 
   list () {
     const filenames = this.files
+    if (filenames.length === 0) {
+      console.log('表示できるファイルがありません')
+      exit()
+    }
     for (let number = 0; number < filenames.length; number++) {
       console.log(filenames[number].replace('.txt', ''))
     }
@@ -57,8 +61,12 @@ class Memo {
   }
 
   show () {
-    const files = this.files
-    const basename = files.map(file => {
+    const filenames = this.files
+    if (filenames.length === 0) {
+      console.log('選択できるファイルがありません')
+      exit()
+    }
+    const basename = filenames.map(file => {
       return file.replace('.txt', '')
     })
     const question = {
