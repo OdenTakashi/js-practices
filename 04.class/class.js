@@ -19,7 +19,7 @@ class Memo {
       inputs.push('\n' + line)
     })
 
-    reader.question('メモを作成してね！ \n', (answer) => {
+    reader.question('メモを作成してね！ 一行目がタイトルになります\n', (answer) => {
       inputs.push(answer)
     })
 
