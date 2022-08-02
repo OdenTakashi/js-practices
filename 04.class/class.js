@@ -35,6 +35,7 @@ class Memo {
       console.log('削除できるファイルがありません')
       exit()
     }
+
     const basename = filenames.map(file => {
       return file.replace('.txt', '')
     })
