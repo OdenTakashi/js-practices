@@ -25,7 +25,9 @@ class Memo {
 
     reader.on('close', function () {
       console.log('ファイルを保存しました。')
-      fs.writeFileSync(`./memo_data/${inputs[0]}.txt`, inputs.join(''))
+      const memoTitle = inputs[0].replace(/\.*\//, '')
+      console.log(memoTitle)
+      fs.writeFileSync(`./memo_data/${memoTitle}.txt`, inputs.join(''))
     })
   }
 
