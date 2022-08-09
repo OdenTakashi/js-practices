@@ -67,14 +67,14 @@ class Memo {
       console.log('選択できるファイルがありません')
       exit()
     }
-    const basename = filenames.map(file => {
+    const basenames = filenames.map(file => {
       return file.replace('.txt', '')
     })
     const question = {
       type: 'select',
       name: 'filename',
       message: 'Choose a note you want to see:',
-      choices: basename
+      choices: basenames
     }
     prompt(question)
       .then(answer => console.log(fs.readFileSync(`./memo_data/${answer.filename}.txt`, 'utf-8')))
