@@ -16,6 +16,7 @@ class Memo {
   }
 
   create () {
+    console.log(this.files)
     reader.on('line', function (line) {
       inputs.push('\n' + line)
     })
@@ -57,9 +58,11 @@ class Memo {
       console.log('No files to show')
       exit()
     }
-    for (let number = 0; number < filenames.length; number++) {
-      console.log(filenames[number].replace('.txt', ''))
-    }
+    filenames.forEach((filename) => {
+      const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
+      const text = fileContent.split(/\r\n|\r|\n/)
+      console.log(text[0])
+    })
     exit()
   }
 
@@ -69,17 +72,22 @@ class Memo {
       console.log('No files to select')
       exit()
     }
-    const basenames = filenames.map(file => {
-      return file.replace('.txt', '')
+    const hash = {}
+    const filesContent = filenames.map((filename) => {
+      const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
+      const text = fileContent.split(/\r\n|\r|\n/)
+      hash[text[0]] = filename
+      return text[0]
     })
+    console.log(hash)
     const question = {
       type: 'select',
       name: 'filename',
       message: 'Choose a note you want to see:',
-      choices: basenames
+      choices: filesContent
     }
     prompt(question)
-      .then(answer => console.log(fs.readFileSync(`./memo_data/${answer.filename}.txt`, 'utf-8')))
+      .then(answer => console.log(fs.readFileSync(`./memo_data/${hash[answer.filename]}`, 'utf-8')))
   }
 }
 
