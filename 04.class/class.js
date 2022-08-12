@@ -15,6 +15,17 @@ class Memo {
     this.files = fs.readdirSync('./memo_data', 'utf-8')
   }
 
+  getFileContent () {
+    const hash = {}
+    this.files.forEach((path) => {
+      const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
+      const text = fileContent.split(/\r\n|\r|\n/)
+      hash[text[0]] = path
+    }
+    )
+    return hash
+  }
+
   create () {
     console.log(this.files)
     reader.on('line', function (line) {
@@ -39,17 +50,17 @@ class Memo {
       exit()
     }
 
-    const basename = filenames.map(file => {
-      return file.replace('.txt', '')
-    })
+    const contentAndPath = this.getFileContent()
+    const filesContents = Object.keys(contentAndPath)
+    console.log(filesContents)
     const question = {
       type: 'select',
       name: 'filename',
       message: 'Choose a note you want to destroy:',
-      choices: basename
+      choices: filesContents
     }
     prompt(question)
-      .then(answer => fs.unlinkSync(`./memo_data/${answer.filename}.txt`))
+      .then(answer => fs.unlinkSync(`./memo_data/${contentAndPath[answer.filename]}`))
   }
 
   list () {
@@ -72,25 +83,18 @@ class Memo {
       console.log('No files to select')
       exit()
     }
-    const hash = {}
-    const filesContent = filenames.map((filename) => {
-      const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
-      const text = fileContent.split(/\r\n|\r|\n/)
-      hash[text[0]] = filename
-      return text[0]
-    })
-    console.log(hash)
+    const contentAndPath = this.getFileContent()
+    const filesContents = Object.keys(contentAndPath)
     const question = {
       type: 'select',
       name: 'filename',
       message: 'Choose a note you want to see:',
-      choices: filesContent
+      choices: filesContents
     }
     prompt(question)
-      .then(answer => console.log(fs.readFileSync(`./memo_data/${hash[answer.filename]}`, 'utf-8')))
+      .then(answer => console.log(fs.readFileSync(`./memo_data/${contentAndPath[answer.filename]}`, 'utf-8')))
   }
 }
-
 const memo = new Memo()
 
 if (minimist.d) {
