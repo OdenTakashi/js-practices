@@ -1,4 +1,5 @@
 const fs = require('fs')
+const dayjs = require('dayjs')
 const { prompt } = require('enquirer')
 const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
@@ -25,9 +26,8 @@ class Memo {
 
     reader.on('close', function () {
       console.log('ファイルを保存しました。')
-      const memoTitle = inputs[0].replace(/\.*\//, '')
-      console.log(memoTitle)
-      fs.writeFileSync(`./memo_data/${memoTitle}.txt`, inputs.join(''))
+      const now = dayjs().format('YYYY_MM_DD_HH:mm')
+      fs.writeFileSync(`./memo_data/${now}.txt`, inputs.join(''))
     })
   }
 
