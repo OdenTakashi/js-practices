@@ -20,12 +20,12 @@ class Memo {
       inputs.push('\n' + line)
     })
 
-    reader.question('メモを作成してね！ 一行目がタイトルになります\n', (answer) => {
+    reader.question('Make a note !\n', (answer) => {
       inputs.push(answer)
     })
 
     reader.on('close', function () {
-      console.log('ファイルを保存しました。')
+      console.log('Your note was saved safely.')
       const now = dayjs().format('YYYY_MM_DD_HH:mm')
       fs.writeFileSync(`./memo_data/${now}.txt`, inputs.join(''))
     })
@@ -34,7 +34,7 @@ class Memo {
   destroy () {
     const filenames = this.files
     if (filenames.length === 0) {
-      console.log('削除できるファイルがありません')
+      console.log('No files to delete')
       exit()
     }
 
@@ -54,7 +54,7 @@ class Memo {
   list () {
     const filenames = this.files
     if (filenames.length === 0) {
-      console.log('表示できるファイルがありません')
+      console.log('No files to show')
       exit()
     }
     for (let number = 0; number < filenames.length; number++) {
@@ -66,7 +66,7 @@ class Memo {
   show () {
     const filenames = this.files
     if (filenames.length === 0) {
-      console.log('選択できるファイルがありません')
+      console.log('No files to select')
       exit()
     }
     const basenames = filenames.map(file => {
