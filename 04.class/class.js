@@ -27,7 +27,6 @@ class Memo {
   }
 
   create () {
-    console.log(this.files)
     reader.on('line', function (line) {
       inputs.push('\n' + line)
     })
@@ -52,7 +51,6 @@ class Memo {
 
     const contentAndPath = this.getFileContent()
     const filesContents = Object.keys(contentAndPath)
-    console.log(filesContents)
     const question = {
       type: 'select',
       name: 'filename',
