@@ -59,8 +59,8 @@ class Memo {
       exit()
     }
 
-    const contentAndPath = this.getFileContent()
-    const fileFirstLineContents = Object.keys(contentAndPath)
+    const fileFirstLineContentsAndPaths = this.getFileContent()
+    const fileFirstLineContents = Object.keys(fileFirstLineContentsAndPaths)
     const question = {
       type: 'select',
       name: 'filename',
@@ -68,7 +68,7 @@ class Memo {
       choices: fileFirstLineContents
     }
     prompt(question)
-      .then(answer => fs.unlinkSync(`./memo_data/${contentAndPath[answer.filename]}`))
+      .then(answer => fs.unlinkSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.filename]}`))
   }
 
   list () {
@@ -91,8 +91,8 @@ class Memo {
       console.log('No files to select')
       exit()
     }
-    const contentAndPath = this.getFileContent()
-    const fileFirstLineContents = Object.keys(contentAndPath)
+    const fileFirstLineContentsAndPaths = this.getFileContent()
+    const fileFirstLineContents = Object.keys(fileFirstLineContentsAndPaths)
     const question = {
       type: 'select',
       name: 'filename',
@@ -100,7 +100,7 @@ class Memo {
       choices: fileFirstLineContents
     }
     prompt(question)
-      .then(answer => console.log(fs.readFileSync(`./memo_data/${contentAndPath[answer.filename]}`, 'utf-8')))
+      .then(answer => console.log(fs.readFileSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.filename]}`, 'utf-8')))
   }
 }
 const memo = new Memo()
