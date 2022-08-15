@@ -27,6 +27,9 @@ class Memo {
   }
 
   create () {
+    const filenames = this.files
+    let filesNumber = filenames.length
+
     reader.on('line', function (line) {
       inputs.push('\n' + line)
     })
@@ -36,9 +39,17 @@ class Memo {
     })
 
     reader.on('close', function () {
+      let flag = true
+      while (flag) {
+        const path = `./memo_data/memo_${filesNumber + 1}.txt`
+        if (!fs.existsSync(path)) {
+          flag = false
+          fs.writeFileSync(path, inputs.join(''))
+        } else {
+          filesNumber++
+        }
+      }
       console.log('Your note was saved safely.')
-      const now = dayjs().format('YYYY_MM_DD_HH:mm')
-      fs.writeFileSync(`./memo_data/${now}.txt`, inputs.join(''))
     })
   }
 
