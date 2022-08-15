@@ -1,5 +1,4 @@
 const fs = require('fs')
-const dayjs = require('dayjs')
 const { prompt } = require('enquirer')
 const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
@@ -61,12 +60,12 @@ class Memo {
     }
 
     const contentAndPath = this.getFileContent()
-    const filesContents = Object.keys(contentAndPath)
+    const fileFirstLineContents = Object.keys(contentAndPath)
     const question = {
       type: 'select',
       name: 'filename',
       message: 'Choose a note you want to destroy:',
-      choices: filesContents
+      choices: fileFirstLineContents
     }
     prompt(question)
       .then(answer => fs.unlinkSync(`./memo_data/${contentAndPath[answer.filename]}`))
@@ -93,12 +92,12 @@ class Memo {
       exit()
     }
     const contentAndPath = this.getFileContent()
-    const filesContents = Object.keys(contentAndPath)
+    const fileFirstLineContents = Object.keys(contentAndPath)
     const question = {
       type: 'select',
       name: 'filename',
       message: 'Choose a note you want to see:',
-      choices: filesContents
+      choices: fileFirstLineContents
     }
     prompt(question)
       .then(answer => console.log(fs.readFileSync(`./memo_data/${contentAndPath[answer.filename]}`, 'utf-8')))
