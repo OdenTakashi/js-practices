@@ -63,12 +63,12 @@ class Memo {
     const fileFirstLineContents = Object.keys(fileFirstLineContentsAndPaths)
     const question = {
       type: 'select',
-      name: 'filename',
+      name: 'content',
       message: 'Choose a note you want to destroy:',
       choices: fileFirstLineContents
     }
     prompt(question)
-      .then(answer => fs.unlinkSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.filename]}`))
+      .then(answer => fs.unlinkSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.content]}`))
   }
 
   list () {
@@ -95,12 +95,12 @@ class Memo {
     const fileFirstLineContents = Object.keys(fileFirstLineContentsAndPaths)
     const question = {
       type: 'select',
-      name: 'filename',
+      name: 'content',
       message: 'Choose a note you want to see:',
       choices: fileFirstLineContents
     }
     prompt(question)
-      .then(answer => console.log(fs.readFileSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.filename]}`, 'utf-8')))
+      .then(answer => console.log(fs.readFileSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.content]}`, 'utf-8')))
   }
 }
 const memo = new Memo()
