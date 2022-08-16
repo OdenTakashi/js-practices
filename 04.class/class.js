@@ -20,8 +20,7 @@ class Memo {
       const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
       hash[text[0]] = path
-    }
-    )
+    })
     return hash
   }
 
