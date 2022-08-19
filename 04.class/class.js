@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { prompt } = require('enquirer')
+const { MultiSelect } = require('enquirer')
 const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
 const inputs = []
@@ -15,14 +15,15 @@ class Memo {
   }
 
   getFileContent () {
-    const hash = {}
-    this.files.forEach((path) => {
+    const result = this.files.map((path) => {
       const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
-      hash[text[0]] = path
+      const hash = { name: text[0], value: path }
+      return hash
     })
-    return hash
+    return result
   }
+  /// [{name: 'kodama'}, {name: 'naoki'}]
 
   create () {
     const filenames = this.files
@@ -59,15 +60,25 @@ class Memo {
     }
 
     const fileFirstLineContentsAndPaths = this.getFileContent()
-    const fileFirstLineContents = Object.keys(fileFirstLineContentsAndPaths)
-    const question = {
-      type: 'select',
-      name: 'content',
+    console.log(fileFirstLineContentsAndPaths)
+
+    const prompt = new MultiSelect({
+      name: 'value',
       message: 'Choose a note you want to destroy:',
-      choices: fileFirstLineContents
-    }
-    prompt(question)
-      .then(answer => fs.unlinkSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.content]}`))
+      limit: fileFirstLineContentsAndPaths.count,
+      choices: fileFirstLineContentsAndPaths,
+      result (names) {
+        return this.map(names)
+      }
+    })
+
+    prompt.run()
+      .then(answer => {
+        for (const [key, value] of Object.entries(answer)) {
+          console.log(key, value)
+        }
+      }
+      )
   }
 
   list () {
