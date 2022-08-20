@@ -18,7 +18,7 @@ class Memo {
     const result = this.files.map((path) => {
       const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
-      const hash = { name: text[0], value: path }
+      const hash = { name: `${text[0]} in ${path}`, value: path }
       return hash
     })
     return result
@@ -67,15 +67,17 @@ class Memo {
       message: 'Choose a note you want to destroy:',
       limit: fileFirstLineContentsAndPaths.count,
       choices: fileFirstLineContentsAndPaths,
-      result (names) {
-        return this.map(names)
+      result (values) {
+        return this.map(values)
       }
     })
-
+/// {memo_1.txt: test} {memo_2.txt: test}
     prompt.run()
       .then(answer => {
+        console.log(answer)
         for (const [key, value] of Object.entries(answer)) {
           console.log(key, value)
+          fs.unlinkSync(`./memo_data/${value}`)
         }
       }
       )
