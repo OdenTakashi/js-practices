@@ -33,21 +33,12 @@ class Memo {
       inputs.push(answer)
     })
 
-    let filesNumber = this.files.length
-
     reader.on('close', function () {
-      let flag = true
-      while (flag) {
-        const path = `./memo_data/memo_${filesNumber + 1}.txt`
-        if (!fs.existsSync(path)) {
-          flag = false
-          fs.writeFileSync(path, inputs.join(''))
-        } else {
-          filesNumber++
-        }
-      }
       console.log('Your note was saved safely.')
-    })
+      const now = new Date()
+      fs.writeFileSync(`./memo_data/${now.getTime()}.txt`, inputs.join(''))
+    }
+    )
   }
 
   destroy () {
