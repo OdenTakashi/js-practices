@@ -25,8 +25,7 @@ class Memo {
   }
 
   create () {
-    const filenames = this.files
-    let filesNumber = filenames.length
+    let filesNumber = this.files.length
 
     reader.on('line', function (line) {
       inputs.push('\n' + line)
@@ -52,8 +51,7 @@ class Memo {
   }
 
   destroy () {
-    const filenames = this.files
-    if (filenames.length === 0) {
+    if (this.files.length === 0) {
       console.log('No files to delete')
       exit()
     }
@@ -95,8 +93,7 @@ class Memo {
   }
 
   show () {
-    const filenames = this.files
-    if (filenames.length === 0) {
+    if (this.files.length === 0) {
       console.log('No files to select')
       exit()
     }
