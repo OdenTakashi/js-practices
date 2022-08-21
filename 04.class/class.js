@@ -25,8 +25,6 @@ class Memo {
   }
 
   create () {
-    let filesNumber = this.files.length
-
     reader.on('line', function (line) {
       inputs.push('\n' + line)
     })
@@ -35,6 +33,7 @@ class Memo {
       inputs.push(answer)
     })
 
+    let filesNumber = this.files.length
     reader.on('close', function () {
       let flag = true
       while (flag) {
