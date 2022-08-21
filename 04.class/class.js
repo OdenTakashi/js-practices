@@ -23,7 +23,6 @@ class Memo {
     })
     return result
   }
-  /// [{name: 'kodama'}, {name: 'naoki'}]
 
   create () {
     const filenames = this.files
@@ -60,7 +59,6 @@ class Memo {
     }
 
     const fileFirstLineContentsAndPaths = this.getFileContent()
-    console.log(fileFirstLineContentsAndPaths)
 
     const prompt = new MultiSelect({
       name: 'value',
@@ -71,12 +69,10 @@ class Memo {
         return this.map(values)
       }
     })
-/// {memo_1.txt: test} {memo_2.txt: test}
+
     prompt.run()
       .then(answer => {
-        console.log(answer)
         for (const [key, value] of Object.entries(answer)) {
-          console.log(key, value)
           fs.unlinkSync(`./memo_data/${value}`)
         }
       }
@@ -104,15 +100,23 @@ class Memo {
       exit()
     }
     const fileFirstLineContentsAndPaths = this.getFileContent()
-    const fileFirstLineContents = Object.keys(fileFirstLineContentsAndPaths)
-    const question = {
-      type: 'select',
-      name: 'content',
-      message: 'Choose a note you want to see:',
-      choices: fileFirstLineContents
-    }
-    prompt(question)
-      .then(answer => console.log(fs.readFileSync(`./memo_data/${fileFirstLineContentsAndPaths[answer.content]}`, 'utf-8')))
+
+    const prompt = new MultiSelect({
+      name: 'value',
+      message: 'Choose a note you want to destroy:',
+      limit: fileFirstLineContentsAndPaths.count,
+      choices: fileFirstLineContentsAndPaths,
+      result (values) {
+        return this.map(values)
+      }
+    })
+    prompt.run()
+      .then(answer => {
+        for (const [key, value] of Object.entries(answer)) {
+          console.log(fs.readFileSync(`./memo_data/${value}`, 'utf-8'))
+        }
+      }
+      )
   }
 }
 const memo = new Memo()
