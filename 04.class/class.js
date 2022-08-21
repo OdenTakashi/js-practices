@@ -73,6 +73,7 @@ class Memo {
     prompt.run()
       .then(answer => {
         for (const [key, value] of Object.entries(answer)) {
+          console.log(`${key} was selected and destroyed`)
           fs.unlinkSync(`./memo_data/${value}`)
         }
       }
@@ -113,6 +114,7 @@ class Memo {
     prompt.run()
       .then(answer => {
         for (const [key, value] of Object.entries(answer)) {
+          console.log(`${key} was selected`)
           console.log(fs.readFileSync(`./memo_data/${value}`, 'utf-8'))
         }
       }
