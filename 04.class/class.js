@@ -47,13 +47,12 @@ class Memo {
       exit()
     }
 
-    const fileFirstLineContentsAndPaths = this.getFirstLineAndPath()
+    const firstLineAndPaths = this.getFirstLineAndPath()
 
     const prompt = new MultiSelect({
-      name: 'value',
       message: 'Choose a note you want to destroy:',
-      limit: fileFirstLineContentsAndPaths.count,
-      choices: fileFirstLineContentsAndPaths,
+      limit: firstLineAndPaths.count,
+      choices: firstLineAndPaths,
       result (values) {
         return this.map(values)
       }
@@ -65,8 +64,7 @@ class Memo {
           console.log(`${key} was selected and destroyed`)
           fs.unlinkSync(`./memo_data/${value}`)
         }
-      }
-      )
+      })
   }
 
   list () {
@@ -88,25 +86,24 @@ class Memo {
       console.log('No files to select')
       exit()
     }
-    const fileFirstLineContentsAndPaths = this.getFirstLineAndPath()
+    const firstLineAndPaths = this.getFirstLineAndPath()
 
     const prompt = new MultiSelect({
-      name: 'value',
       message: 'Choose a note you want to destroy:',
-      limit: fileFirstLineContentsAndPaths.count,
-      choices: fileFirstLineContentsAndPaths,
+      limit: firstLineAndPaths.count,
+      choices: firstLineAndPaths,
       result (values) {
         return this.map(values)
       }
     })
+
     prompt.run()
       .then(answer => {
         for (const [key, value] of Object.entries(answer)) {
           console.log(`${key} was selected`)
           console.log(fs.readFileSync(`./memo_data/${value}`, 'utf-8'))
         }
-      }
-      )
+      })
   }
 }
 const memo = new Memo()
