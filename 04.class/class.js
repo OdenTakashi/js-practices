@@ -14,7 +14,7 @@ class Memo {
     this.files = fs.readdirSync('./memo_data', 'utf-8')
   }
 
-  getFileContent () {
+  getFirstLineAndPath () {
     const result = this.files.map((path) => {
       const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
@@ -58,7 +58,7 @@ class Memo {
       exit()
     }
 
-    const fileFirstLineContentsAndPaths = this.getFileContent()
+    const fileFirstLineContentsAndPaths = this.getFirstLineAndPath()
 
     const prompt = new MultiSelect({
       name: 'value',
@@ -100,7 +100,7 @@ class Memo {
       console.log('No files to select')
       exit()
     }
-    const fileFirstLineContentsAndPaths = this.getFileContent()
+    const fileFirstLineContentsAndPaths = this.getFirstLineAndPath()
 
     const prompt = new MultiSelect({
       name: 'value',
