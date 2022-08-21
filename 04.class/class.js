@@ -2,7 +2,6 @@ const fs = require('fs')
 const { MultiSelect } = require('enquirer')
 const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
-const inputs = []
 
 const reader = require('readline').createInterface({
   input: process.stdin,
@@ -25,6 +24,7 @@ class Memo {
   }
 
   create () {
+    const inputs = []
     reader.on('line', function (line) {
       inputs.push('\n' + line)
     })
@@ -34,6 +34,7 @@ class Memo {
     })
 
     let filesNumber = this.files.length
+
     reader.on('close', function () {
       let flag = true
       while (flag) {
