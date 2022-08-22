@@ -49,7 +49,6 @@ class Memo {
 
     const prompt = new MultiSelect({
       message: 'Choose a note you want to destroy:',
-      limit: firstLineAndPaths.count,
       choices: firstLineAndPaths,
       result (values) {
         return this.map(values)
@@ -88,7 +87,6 @@ class Memo {
 
     const prompt = new MultiSelect({
       message: 'Choose a note you want to show:',
-      limit: firstLineAndPaths.count,
       choices: firstLineAndPaths,
       result (values) {
         return this.map(values)
