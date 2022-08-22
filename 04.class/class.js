@@ -76,7 +76,6 @@ class Memo {
     }
     filenames.forEach((filename) => {
       const arrayOfContents = this.buildArrayOfContents(filename)
-      console.log(arrayOfContents)
       console.log('List of memos')
       console.log(arrayOfContents[0])
     })
