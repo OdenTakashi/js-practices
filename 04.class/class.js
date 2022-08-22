@@ -33,8 +33,8 @@ class Memo {
     })
 
     reader.on('close', function () {
-      const now = new Date()
-      fs.writeFileSync(`./memo_data/${now.getTime()}.txt`, inputs.join(''))
+      const timeStamp = new Date().getTime()
+      fs.writeFileSync(`./memo_data/${timeStamp}.txt`, inputs.join(''))
       console.log('Your note was saved safely.')
     }
     )
