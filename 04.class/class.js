@@ -14,13 +14,12 @@ class Memo {
   }
 
   buildChoice () {
-    const result = this.files.map((path) => {
+    return this.files.map((path) => {
       const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
       const choice = { name: `${text[0]} in ${path}`, value: path }
       return choice
     })
-    return result
   }
 
   create () {
