@@ -22,7 +22,8 @@ class Memo {
 
   buildArrayOfContents (filename) {
     const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
-    return fileContent.split(/\r\n|\r|\n/)
+    const arrayOfContents = fileContent.split(/\r\n|\r|\n/)
+    return arrayOfContents
   }
 
   create () {
