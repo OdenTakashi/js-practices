@@ -13,12 +13,12 @@ class Memo {
     this.files = fs.readdirSync('./memo_data', 'utf-8')
   }
 
-  getFirstLineAndPath () {
+  buildChoice () {
     const result = this.files.map((path) => {
       const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
-      const hash = { name: `${text[0]} in ${path}`, value: path }
-      return hash
+      const choice = { name: `${text[0]} in ${path}`, value: path }
+      return choice
     })
     return result
   }
@@ -47,7 +47,7 @@ class Memo {
       exit()
     }
 
-    const firstLineAndPaths = this.getFirstLineAndPath()
+    const firstLineAndPaths = this.buildChoice()
 
     const prompt = new MultiSelect({
       message: 'Choose a note you want to destroy:',
@@ -86,7 +86,7 @@ class Memo {
       console.log('No files to select')
       exit()
     }
-    const firstLineAndPaths = this.getFirstLineAndPath()
+    const firstLineAndPaths = this.buildChoice()
 
     const prompt = new MultiSelect({
       message: 'Choose a note you want to destroy:',
