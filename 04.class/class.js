@@ -14,11 +14,15 @@ class Memo {
 
   buildChoice () {
     return this.files.map((path) => {
-      const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
-      const text = fileContent.split(/\r\n|\r|\n/)
-      const choice = { name: `${text[0]} in ${path}`, value: path }
+      const arrayOfContents = this.buildArrayOfContents(path)
+      const choice = { name: `${arrayOfContents[0]} in ${path}`, value: path }
       return choice
     })
+  }
+
+  buildArrayOfContents (filename) {
+    const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
+    return fileContent.split(/\r\n|\r|\n/)
   }
 
   create () {
@@ -71,10 +75,10 @@ class Memo {
       return
     }
     filenames.forEach((filename) => {
-      const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
-      const text = fileContent.split(/\r\n|\r|\n/)
+      const arrayOfContents = this.buildArrayOfContents(filename)
+      console.log(arrayOfContents)
       console.log('List of memos')
-      console.log(text[0])
+      console.log(arrayOfContents[0])
     })
   }
 
