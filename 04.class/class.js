@@ -33,9 +33,9 @@ class Memo {
     })
 
     reader.on('close', function () {
-      console.log('Your note was saved safely.')
       const now = new Date()
       fs.writeFileSync(`./memo_data/${now.getTime()}.txt`, inputs.join(''))
+      console.log('Your note was saved safely.')
     }
     )
   }
@@ -60,8 +60,8 @@ class Memo {
     prompt.run()
       .then(answer => {
         for (const [key, value] of Object.entries(answer)) {
-          console.log(`${key} was selected and destroyed`)
           fs.unlinkSync(`./memo_data/${value}`)
+          console.log(`${key} was selected and destroyed`)
         }
       })
   }
@@ -99,8 +99,8 @@ class Memo {
     prompt.run()
       .then(answer => {
         for (const [key, value] of Object.entries(answer)) {
-          console.log(`${key} was selected`)
           console.log(fs.readFileSync(`./memo_data/${value}`, 'utf-8'))
+          console.log(`${key} was selected`)
         }
       })
   }
