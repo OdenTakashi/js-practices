@@ -87,7 +87,7 @@ class Memo {
     const firstLineAndPaths = this.buildChoice()
 
     const prompt = new MultiSelect({
-      message: 'Choose a note you want to destroy:',
+      message: 'Choose a note you want to show:',
       limit: firstLineAndPaths.count,
       choices: firstLineAndPaths,
       result (values) {
