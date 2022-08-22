@@ -74,6 +74,7 @@ class Memo {
     filenames.forEach((filename) => {
       const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
+      console.log('List of memos')
       console.log(text[0])
     })
   }
