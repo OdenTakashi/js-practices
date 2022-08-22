@@ -1,6 +1,5 @@
 const fs = require('fs')
 const { MultiSelect } = require('enquirer')
-const { exit } = require('process')
 const minimist = require('minimist')(process.argv.slice(2))
 
 const reader = require('readline').createInterface({
@@ -43,7 +42,7 @@ class Memo {
   destroy () {
     if (this.files.length === 0) {
       console.log('No files to delete')
-      exit()
+      return
     }
 
     const firstLineAndPaths = this.buildChoice()
@@ -70,20 +69,19 @@ class Memo {
     const filenames = this.files
     if (filenames.length === 0) {
       console.log('No files to show')
-      exit()
+      return
     }
     filenames.forEach((filename) => {
       const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
       const text = fileContent.split(/\r\n|\r|\n/)
       console.log(text[0])
     })
-    exit()
   }
 
   show () {
     if (this.files.length === 0) {
       console.log('No files to select')
-      exit()
+      return
     }
     const firstLineAndPaths = this.buildChoice()
 
