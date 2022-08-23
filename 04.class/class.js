@@ -14,8 +14,8 @@ class Memo {
 
   buildChoices () {
     return this.memosPaths.map((path) => {
-      const arrayOfContents = this.fetchContentsLines(path)
-      return { name: `${arrayOfContents[0]} in ${path}`, value: path }
+      const ContentsLines = this.fetchContentsLines(path)
+      return { name: `${ContentsLines[0]} in ${path}`, value: path }
     })
   }
 
@@ -73,9 +73,9 @@ class Memo {
       return
     }
     this.memosPaths.forEach((path) => {
-      const arrayOfContents = this.fetchContentsLines(path)
+      const contentsLines = this.fetchContentsLines(path)
       console.log('List of memos')
-      console.log(arrayOfContents[0])
+      console.log(contentsLines[0])
     })
   }
 
