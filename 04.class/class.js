@@ -9,11 +9,11 @@ const reader = require('readline').createInterface({
 
 class Memo {
   constructor () {
-    this.files = fs.readdirSync('./memo_data', 'utf-8')
+    this.memosPaths = fs.readdirSync('./memo_data', 'utf-8')
   }
 
   buildChoices () {
-    return this.files.map((path) => {
+    return this.memosPaths.map((path) => {
       const arrayOfContents = this.fetchContentsLines(path)
       return { name: `${arrayOfContents[0]} in ${path}`, value: path }
     })
@@ -43,7 +43,7 @@ class Memo {
   }
 
   destroy () {
-    if (this.files.length === 0) {
+    if (this.memosPaths.length === 0) {
       console.log('No files to delete')
       return
     }
@@ -68,19 +68,19 @@ class Memo {
   }
 
   list () {
-    if (this.files.length === 0) {
+    if (this.memosPaths.length === 0) {
       console.log('No files to show')
       return
     }
-    this.files.forEach((filename) => {
-      const arrayOfContents = this.fetchContentsLines(filename)
+    this.memosPaths.forEach((path) => {
+      const arrayOfContents = this.fetchContentsLines(path)
       console.log('List of memos')
       console.log(arrayOfContents[0])
     })
   }
 
   show () {
-    if (this.files.length === 0) {
+    if (this.memosPaths.length === 0) {
       console.log('No files to select')
       return
     }
