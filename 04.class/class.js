@@ -13,14 +13,14 @@ class Memo {
   }
 
   buildChoices () {
-    return this.memosPaths.map((path) => {
-      const ContentsLines = this.fetchContentsLines(path)
-      return { name: `${ContentsLines[0]} in ${path}`, value: path }
+    return this.memosPaths.map((memoPath) => {
+      const ContentsLines = this.fetchContentsLines(memoPath)
+      return { name: `${ContentsLines[0]} in ${memoPath}`, value: memoPath }
     })
   }
 
-  fetchContentsLines (filename) {
-    const fileContent = fs.readFileSync(`./memo_data/${filename}`, 'utf-8')
+  fetchContentsLines (path) {
+    const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
     return fileContent.split(/\r\n|\r|\n/)
   }
 
@@ -72,8 +72,8 @@ class Memo {
       console.log('No files to show')
       return
     }
-    this.memosPaths.forEach((path) => {
-      const contentsLines = this.fetchContentsLines(path)
+    this.memosPaths.forEach((memoPath) => {
+      const contentsLines = this.fetchContentsLines(memoPath)
       console.log('List of memos')
       console.log(contentsLines[0])
     })
