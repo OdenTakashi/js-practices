@@ -12,7 +12,7 @@ class Memo {
     this.files = fs.readdirSync('./memo_data', 'utf-8')
   }
 
-  buildChoice () {
+  buildChoices () {
     return this.files.map((path) => {
       const arrayOfContents = this.buildArrayOfContents(path)
       const choice = { name: `${arrayOfContents[0]} in ${path}`, value: path }
