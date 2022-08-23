@@ -48,11 +48,11 @@ class Memo {
       return
     }
 
-    const firstLineAndPaths = this.buildChoice()
+    const choices = this.buildChoices()
 
     const prompt = new MultiSelect({
       message: 'Choose a note you want to destroy:',
-      choices: firstLineAndPaths,
+      choices,
       result (values) {
         return this.map(values)
       }
@@ -85,11 +85,11 @@ class Memo {
       console.log('No files to select')
       return
     }
-    const firstLineAndPaths = this.buildChoice()
+    const choices = this.buildChoices()
 
     const prompt = new MultiSelect({
       message: 'Choose a note you want to show:',
-      choices: firstLineAndPaths,
+      choices,
       result (values) {
         return this.map(values)
       }
