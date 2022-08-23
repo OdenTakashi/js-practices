@@ -20,8 +20,8 @@ class Memo {
   }
 
   fetchContentLines (path) {
-    const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
-    return fileContent.split(/\r\n|\r|\n/)
+    const memoContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
+    return memoContent.split(/\r\n|\r|\n/)
   }
 
   create () {
