@@ -14,12 +14,12 @@ class Memo {
 
   buildChoices () {
     return this.memosPaths.map((memoPath) => {
-      const ContentsLines = this.fetchContentsLines(memoPath)
-      return { name: `${ContentsLines[0]} in ${memoPath}`, value: memoPath }
+      const contentLines = this.fetchContentLines(memoPath)
+      return { name: `${contentLines[0]} in ${memoPath}`, value: memoPath }
     })
   }
 
-  fetchContentsLines (path) {
+  fetchContentLines (path) {
     const fileContent = fs.readFileSync(`./memo_data/${path}`, 'utf-8')
     return fileContent.split(/\r\n|\r|\n/)
   }
@@ -73,9 +73,9 @@ class Memo {
       return
     }
     this.memosPaths.forEach((memoPath) => {
-      const contentsLines = this.fetchContentsLines(memoPath)
+      const contentLines = this.fetchContentLines(memoPath)
       console.log('List of memos')
-      console.log(contentsLines[0])
+      console.log(contentLines[0])
     })
   }
 
