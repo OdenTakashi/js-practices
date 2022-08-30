@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+      async function getHtml() {
+        const response = await fetch('https://bootcamp.fjord.jp/')
+        const html = await response.text();
+        console.log(html);
+      }
+      getHtml();
+    </script>
+  </body>
+</html>
